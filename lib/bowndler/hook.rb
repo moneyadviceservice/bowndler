@@ -11,7 +11,6 @@ module Bowndler
     def create
       return if hook_registered?
       return unless bundler_running? && bundler_command_modifies_gemfile?
-      return unless bowndler_installed?
 
       create_hook
       self.hook_registered = true
@@ -24,6 +23,8 @@ module Bowndler
     end
 
     def bowndler_update
+      return unless bowndler_installed?
+
       Dir.chdir(File.dirname(Bundler.default_gemfile)) do
         exec "bowndler update"
       end
@@ -42,7 +43,9 @@ module Bowndler
     end
 
     def bowndler_installed?
-      return `which bowndler 1>&2>/dev/null` == 0
+      bowndler_path = `which bowndler 2>/dev/null`
+
+      !bowndler_path.to_s.empty?
     end
 
   end
