@@ -42,7 +42,7 @@ module Bowndler
     end
 
     def bowndler_installed?
-      return `which bowndler` == 0
+      return `which bowndler 1>&2>/dev/null` == 0
     end
 
   end
