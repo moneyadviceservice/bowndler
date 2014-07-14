@@ -23,6 +23,7 @@ module Bowndler
     end
 
     def bowndler_update
+      puts "BOWNDLER BOWNDLER BOWNDLER BOWNDLER BOWNDLER hook run"
       return unless bowndler_installed?
 
       Dir.chdir(File.dirname(Bundler.default_gemfile)) do
@@ -44,6 +45,8 @@ module Bowndler
 
     def bowndler_installed?
       bowndler_path = `which bowndler 2>/dev/null`
+
+      puts "BOWNDLER BOWNDLER BOWNDLER BOWNDLER BOWNDLER bowndler_path: #{bowndler_path}"
 
       !bowndler_path.to_s.empty?
     end
