@@ -10,8 +10,8 @@ module Bowndler
 
     def create
       return if hook_registered?
-      return unless bowndler_installed?
       return unless bundler_running? && bundler_command_modifies_gemfile?
+      return unless bowndler_installed?
 
       create_hook
       self.hook_registered = true
