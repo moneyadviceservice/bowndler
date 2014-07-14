@@ -9,8 +9,9 @@ module Bowndler
     alias :hook_registered? :hook_registered
 
     def create
-      return unless bundler_running? && bundler_command_modifies_gemfile?
       return if hook_registered?
+      return unless bowndler_installed?
+      return unless bundler_running? && bundler_command_modifies_gemfile?
 
       create_hook
       self.hook_registered = true
@@ -38,6 +39,10 @@ module Bowndler
 
     def bundler_command_modifies_gemfile?
       ['', 'install', 'update'].include?($FILE_NAME.to_s.downcase)
+    end
+
+    def bowndler_installed?
+      return `which bowndler` == 0
     end
 
   end
