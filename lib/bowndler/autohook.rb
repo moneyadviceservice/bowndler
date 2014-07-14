@@ -1,0 +1,3 @@
+require 'bowndler'
+
+Bowndler.hook
