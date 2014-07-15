@@ -39,7 +39,7 @@ module Bowndler
     end
 
     def bundler_command_modifies_gemfile?
-      ['', 'install', 'update'].include?($FILE_NAME.to_s.downcase)
+      ARGV.empty? || ARGV.any? { |a| ['install', 'update'].include?(a) }
     end
 
     def bowndler_installed?
