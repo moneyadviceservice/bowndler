@@ -2,27 +2,27 @@ require 'erb'
 require 'json'
 
 module Bowndler
-  class BowerConfigurator
-    class ManifestTemplate
-      def gem_path(name)
-        Bundler.rubygems.find_name(name).first.full_gem_path
+  module Commands
+    class BowerConfigure
+
+      class GemAwareTemplate
+        def gem_path(name)
+          Bundler.rubygems.find_name(name).first.full_gem_path
+        end
       end
-    end
 
-    attr_reader :manifest_template, :manifest_output_path
-    private :manifest_template, :manifest_output_path
+      attr_reader :template
+      private :template
 
-    def initialize(manifest_template_path, manifest_output_path)
-      @manifest_output_path = manifest_output_path
+      def initialize(template_path)
+        erb = ERB.new(IO.read(template_path))
+        erb.filename = template_path.to_s
+        @template = erb.def_class(GemAwareTemplate, 'render()').new
+      end
 
-      erb = ERB.new(IO.read(manifest_template_path))
-      erb.filename = manifest_template_path
-      @manifest_template = erb.def_class(ManifestTemplate, 'render()')
-    end
-
-    def generate_manifest
-      bower_config = JSON.parse(manifest_template.new.render)
-      bower_config = {:__warning__ => [
+      def call(output_path)
+        bower_config = JSON.parse(template.render)
+        bower_config = {:__warning__ => [
           " ************************************************************************** ",
           " *                                                                        * ",
           " * WARNING!                                                               * ",
@@ -32,13 +32,13 @@ module Bowndler
           " * `bower_configure` to regenerate this file.                             * ",
           " *                                                                        * ",
           " ************************************************************************** ",
-      ]}.merge(bower_config)
+        ]}.merge(bower_config)
 
-      bower_json = JSON.pretty_generate(bower_config)
-      File.open(manifest_output_path, 'w') do |file|
-        file.write(bower_json)
+        bower_json = JSON.pretty_generate(bower_config)
+        File.open(output_path, 'w') do |file|
+          file.write(bower_json)
+        end
       end
     end
-
   end
 end
