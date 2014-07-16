@@ -29,7 +29,7 @@ module Bowndler
           " * This file is generated. ANY CHANGES YOU MAKE MAY BE OVERWRITTEN.       * ",
           " *                                                                        * ",
           " * To add/edit bower dependencies, please edit bower.json.erb, and run    * ",
-          " * `bower_configure` to regenerate this file.                             * ",
+          " * `bowndler bower_configure` to regenerate this file.                    * ",
           " *                                                                        * ",
           " ************************************************************************** ",
         ]}.merge(bower_config)
