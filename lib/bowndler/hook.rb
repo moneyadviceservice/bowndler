@@ -9,14 +9,20 @@ module Bowndler
     alias :hook_registered? :hook_registered
 
     def create
-      return if hook_registered?
-      return unless bundler_running? && bundler_command_modifies_gemfile?
+      return unless hookable_process?
 
       create_hook
       self.hook_registered = true
     end
 
   private
+
+    def hookable_process?
+      return if ENV['SKIP_BOWNDLER']
+      return if hook_registered?
+
+      return bundler_running? && bundler_command_modifies_gemfile?
+    end
 
     def create_hook
       at_exit { bowndler_update if is_exiting_cleanly? }
