@@ -1,5 +1,6 @@
 require 'erb'
 require 'json'
+require 'bowndler/hook_lock'
 
 module Bowndler
   module Commands
@@ -11,12 +12,14 @@ module Bowndler
         end
       end
 
-      attr_reader :template
+      attr_reader :template, :template_path
       private :template
 
       def initialize(template_path)
-        erb = ERB.new(IO.read(template_path))
-        erb.filename = template_path.to_s
+        @template_path = template_path
+
+        erb = ERB.new(IO.read(@template_path))
+        erb.filename = @template_path.to_s
         @template = erb.def_class(GemAwareTemplate, 'render()').new
       end
 
@@ -38,6 +41,8 @@ module Bowndler
         File.open(output_path, 'w') do |file|
           file.write(bower_json)
         end
+
+        HookLock.new(File.dirname(@template_path)).release
       end
     end
   end
