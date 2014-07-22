@@ -41,8 +41,6 @@ module Bowndler
         File.open(output_path, 'w') do |file|
           file.write(bower_json)
         end
-
-        HookLock.new(File.dirname(@template_path)).release
       end
     end
   end

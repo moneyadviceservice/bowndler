@@ -1,5 +1,4 @@
 require 'bowndler/exec_at_exit'
-require 'bowndler/hook_lock'
 require 'bundler'
 
 module Bowndler
@@ -13,25 +12,18 @@ module Bowndler
   private
 
     def create_hook
+      gemfile_dir = File.dirname(Bundler.default_gemfile)
       ExecAtExit.register("bowndler update", gemfile_dir)
     end
 
     def can_hook?
       return false if ENV['SKIP_BOWNDLER']
 
-      hookable_process? && acquire_hook_lock
+      hookable_process?
     end
 
     def hookable_process?
       bundler_running? && bundler_command_modifies_gemfile? && is_master_bundler_process?
-    end
-
-    def acquire_hook_lock
-      HookLock.new(gemfile_dir).acquire
-    end
-
-    def gemfile_dir
-      File.dirname(Bundler.default_gemfile)
     end
 
     def bundler_running?
