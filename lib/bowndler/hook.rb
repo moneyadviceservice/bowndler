@@ -6,7 +6,7 @@ module Bowndler
     extend self
 
     def create
-      create_hook if can_hook?
+      create_hook if hookable_process?
     end
 
   private
@@ -14,12 +14,6 @@ module Bowndler
     def create_hook
       gemfile_dir = File.dirname(Bundler.default_gemfile)
       ExecAtExit.register("bowndler update", gemfile_dir)
-    end
-
-    def can_hook?
-      return false if ENV['SKIP_BOWNDLER']
-
-      hookable_process?
     end
 
     def hookable_process?
