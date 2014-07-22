@@ -1,6 +1,5 @@
 require 'erb'
 require 'json'
-require 'bowndler/hook_lock'
 
 module Bowndler
   module Commands
