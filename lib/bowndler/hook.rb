@@ -23,7 +23,7 @@ module Bowndler
     end
 
     def hookable_process?
-      bundler_running? && bundler_command_modifies_gemfile?
+      bundler_running? && bundler_command_modifies_gemfile? && is_master_bundler_process?
     end
 
     def acquire_hook_lock
@@ -40,6 +40,11 @@ module Bowndler
 
     def bundler_command_modifies_gemfile?
       ARGV.empty? || ARGV.any? { |a| ['install', 'update'].include?(a) }
+    end
+
+    def is_master_bundler_process?
+      # make sure that the parent process isn't "bundle"
+      /bundle$/ !~ `ps -o comm= -p #{Process.ppid} 2>/dev/null`
     end
 
   end
