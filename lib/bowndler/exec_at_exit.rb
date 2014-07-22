@@ -3,7 +3,7 @@ module Bowndler
 
     class << self
       def register(*args)
-        puts "exec_at_exit: #{args}"
+        $stderr.puts "exec_at_exit: #{args}"
         at_exit { new(*args).run }
       end
     end
