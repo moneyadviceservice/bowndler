@@ -49,7 +49,7 @@ module Bowndler
         gems = gem_names.map { |name| Gem.new(name) }
 
         gems.select(&:uses_bowndler?).each do |gem|
-          find_bowndler_manifests_recursive(gem.manifest_path)
+          find_bowndler_manifests_recursive(gem.manifest_path, found_paths)
         end
       end
 
