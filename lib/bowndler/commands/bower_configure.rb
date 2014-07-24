@@ -1,3 +1,4 @@
+require 'pathname'
 require 'erb'
 require 'json'
 
@@ -11,18 +12,19 @@ module Bowndler
         end
       end
 
-      attr_reader :template, :template_path
-      private :template
+      attr_reader :template, :output_path
+      private :template, :output_path
 
       def initialize(template_path)
-        @template_path = template_path
+        template_path = Pathname.new(template_path)
+        @output_path = template_path.dirname.join('bower.json')
 
-        erb = ERB.new(IO.read(@template_path))
-        erb.filename = @template_path.to_s
+        erb = ERB.new(IO.read(template_path))
+        erb.filename = template_path.to_s
         @template = erb.def_class(GemAwareTemplate, 'render()').new
       end
 
-      def call(output_path)
+      def call
         bower_config = JSON.parse(template.render)
         bower_config = {:__warning__ => [
           " ************************************************************************** ",
