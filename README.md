@@ -1,6 +1,10 @@
 # Bowndler
 
-TODO: Write a gem description
+Integrate bower and bundler, but making bower aware of gem bundles.
+
+NOTE:
+- this is experimental, your results may vary
+- this readme needs to be updated, we know its light on detail. It is highly recommended that you read the source before using bowndler.
 
 ## Installation
 
@@ -18,7 +22,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. rename bower.json to bower.json.erb
+2. add `"my_gem": "<%= gem_path('my_gem') %>"` to "paths" in the bower.json.erb, for any gem that has its own bower.json
+3. instead of running `bower <command>`, run `bowndler <command>` and bowndler will make sure the bower.json is up to date. e.g. `bowndler install`
 
 ## Contributing
 
