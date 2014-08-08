@@ -1,4 +1,4 @@
-Copyright (c) 2014 Gareth Visagie
+Copyright (c) 2014 Money Advice Service
 
 MIT License
 

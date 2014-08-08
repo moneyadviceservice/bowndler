@@ -6,11 +6,11 @@ require 'bowndler/version'
 Gem::Specification.new do |spec|
   spec.name          = "bowndler"
   spec.version       = Bowndler::VERSION
-  spec.authors       = ["Gareth Visagie"]
-  spec.email         = ["gareth@gjvis.com"]
-  spec.description   = %q{Bowndler}
-  spec.summary       = %q{Bowndler}
-  spec.homepage      = ""
+  spec.authors       = ["Money Advice Service", "Gareth Visagie"]
+  spec.email         = ["development.team@moneyadviceservice.org.uk", "gareth@gjvis.com"]
+  spec.description   = %q{Integrate bower and bundler, by making bower aware of gem bundles.}
+  spec.summary       = %q{Integrate bower and bundler, by making bower aware of gem bundles.}
+  spec.homepage      = "https://github.com/moneyadviceservice/bowndler"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
