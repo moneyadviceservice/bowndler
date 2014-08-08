@@ -1,6 +1,6 @@
 # Bowndler
 
-Integrate bower and bundler, but making bower aware of gem bundles.
+Integrate bower and bundler, by making bower aware of gem bundles.
 
 NOTE:
 - this is experimental, your results may vary
