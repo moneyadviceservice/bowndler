@@ -35,7 +35,7 @@ To enable it:
 1. Run `bowndler autohook` in the root of your repo. This will modiy your Gemfile, those changes should be committed to source control.
 2. Set `ENABLE_BOWNDLER_HOOK=1` in your environment (by adding `export ENABLE_BOWNDLER_HOOK=1` to your .bashrc or .bash_profile)
 
-NOTE: This only works reliably on Mac OS X. It currently causes a segfault on both Ruby 1.9.* and 2.* on CentOS (and potentially other Linux distributions as well)
+NOTE: Autohook only works reliably on Mac OS X. It currently causes a segfault on both Ruby 1.9.* and 2.* on CentOS (and potentially other Linux distributions as well)
 
 ## Contributing
 
