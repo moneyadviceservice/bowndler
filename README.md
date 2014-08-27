@@ -20,11 +20,16 @@ Or install it yourself as:
 
     $ gem install bowndler
 
-## Usage
+## Setup
 
 1. rename bower.json to bower.json.erb
 2. add `"my_gem": "<%= gem_path('my_gem') %>"` to "paths" in the bower.json.erb, for any gem that has its own bower.json
 3. instead of running `bower <command>`, run `bowndler <command>` and bowndler will make sure the bower.json is up to date. e.g. `bowndler install`
+
+## Usage
+
+1. In the root of your project run `bowndler update`
+2. If your packages are not being updated as expected run `bower cache clean` first
 
 ### Autohook
 
