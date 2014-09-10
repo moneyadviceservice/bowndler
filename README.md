@@ -30,6 +30,7 @@ Or install it yourself as:
 
 1. In the root of your project run `bowndler update`
 2. If your packages are not being updated as expected run `bower cache clean` first
+3. If your packages are still not being updated. Delete the `bower_components` directory and try again
 
 ### Autohook
 
